@@ -1,0 +1,15 @@
+{% extends "layout.html" %}
+
+{% block head %}
+    <link href="{{url_for('auth.static', filename='login.css')}}" rel="stylesheet"/>
+{% endblock %}
+
+{% block title %} Log in {% endblock %}
+
+{% block main %}
+    <div id="login">
+        <h1>Sign In</h1>
+        <p>
+        <a href={{ url_for('auth.oauth_authorize', provider='google') }}><img src="{{url_for('auth.static', filename='signin_with_google.png')}}" /></a>
+    </div>
+{% endblock %}

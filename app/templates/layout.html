@@ -1,0 +1,22 @@
+{% extends 'builders/theme.html' %}
+{% import 'builders/macros.html' as macros %}
+
+{% block Logo %}<img src="http://flask.pocoo.org/static/logo/flask.png" alt="Flask Logo" width="64"></img>{% endblock %}
+{% block mainnav %}
+    {{ macros.nav_link('index', 'Home', 'home') }}
+    {{ macros.nav_link('epsb.request_print', 'Print Request', 'print') }}
+{% endblock %}
+
+{% block sidenavname %}User Options{% endblock %}
+{% block sidenav %}
+    {% if current_user.is_authenticated %}
+        {{ macros.nav_link('auth.logout', 'Log-Out', 'log-out') }}
+    {% else %}
+        {{ macros.nav_link('auth.login', 'Log-In', 'log-in') }}
+    {% endif %}
+{% endblock %}
+
+{% block header %}
+    {{ macros.render_flashes() }}
+    {{ macros.render_form_alerts(form) }}
+{% endblock %}
