@@ -1,3 +1,12 @@
+"""
+Container for built-in configuration classes.
+
+Each class contains constants that Flask can read into the configuration
+of the application. A configuration class can inherit another one as a
+starting point, so a Default class has been created.
+
+You can override or extend these settings through the instance configuration.
+"""
 from os import environ
 
 
@@ -48,7 +57,6 @@ class Default():
 
     #: File Upload Settings
     MAX_CONTENT_LENGTH = 32 * 1024**2
-    UPLOAD_FOLDER = '/home/ubuntu/workspace/project/instance/uploads'
 
 
 class Development(Default):

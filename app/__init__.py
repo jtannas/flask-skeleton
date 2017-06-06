@@ -6,23 +6,28 @@ This contains the flask factory functions, but does not actually run
 anything. This is to allow for better control over the application
 during testing and deployment.
 """
+
+### IMPORTS ###################################################################
 from flask import Flask, redirect, render_template, request
 from flask_login import login_required
 from flask_sslify import SSLify
 from flask_wtf.csrf import CSRFError
 
 from app.config import CONFIGS
-from app.extensions import cache, csrf, debug_toolbar, limiter, login_manager
+from app.extensions import cache, csrf, debug_toolbar, limiter, login_manager, \
+    migrate
 from app.models import db
 
-def create_app(config=CONFIGS['Default']):
+### IMPERATIVE SHELL ##########################################################
+def create_app(mode=None, instance_config_pyfile=None):
     """
     Create, configure, extend, and add blueprints to a flask instance.
 
     Args:
-        name (str): the name for the flask application
-        config_module (str): Specifies the configuration module in the
-            config folder.
+        name (str): the name for the flask application.
+        mode (str): Specifies the configuration mode from the app.config.
+        instance_config_pyfile (str): Specifies the which <config>.py file
+            to use in the instance folder.
 
     Returns:
         app (Flask): a Flask instance
@@ -37,34 +42,44 @@ def create_app(config=CONFIGS['Default']):
             in the config package.
 
     """
+    ### Function Defaults
+    # Flask-script passes None when given no arguments
+    if not mode:
+        mode = 'Default'
+    if not instance_config_pyfile:
+        instance_config_pyfile = 'flask_config.py'
 
+    ### Init the application
     app = Flask(__name__, instance_relative_config = True)
-    app.config.from_object(config)
-    app.config.from_pyfile('flask_config.py')
+    app.config.from_object(CONFIGS[mode])
+    app.config.from_pyfile(instance_config_pyfile)
     assert app.config['INSTANCE_CONFIG_COMPLETE'] is True, \
         "Failed to find instance configuration file"
 
+    ### Register modifications to the app
     register_debugtools(app)
     register_errorhandlers(app)
     register_extensions(app)
     register_blueprints(app)
 
+    ### Define the index route
     @app.route('/', methods=['GET'])
     @login_required
     @cache.cached(timeout=60)
     def index():
         return render_template('index.html')
 
+    ### Complete
     return app
 
-
+### FUNCTIONAL CORE ###########################################################
 def register_debugtools(flask_app):
-    """Applies some extra configuration changes for debug mode"""
+    """Applies some extra configuration changes for debug mode."""
 
     if flask_app.config['DEBUG'] is False:
         return
 
-    # debug_toolbar.init_app(flask_app)
+    debug_toolbar.init_app(flask_app)
 
     @flask_app.after_request
     def after_request(response):
@@ -96,7 +111,8 @@ def register_extensions(flask_app):
         db.create_all()
 
     login_manager.init_app(flask_app)
-    SSLify(flask_app)  # the init_app method doesn't seem to correctly
+    migrate.init_app(flask_app, db)
+    SSLify(flask_app)  # the init_app method doesn't seem to work correctly
 
 def register_blueprints(flask_app):
     """Registers chosen blueprints to the flask application instance.
@@ -115,7 +131,7 @@ def register_blueprints(flask_app):
     flask_app.register_blueprint(auth)
 
 def register_errorhandlers(flask_app):
-    """Registers error handlers for a list of errors"""
+    """Registers error handlers for a list of errors."""
 
     def render_error(e):
         return render_template(f'errors/{e.code}.html'), e.code

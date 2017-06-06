@@ -1,15 +1,16 @@
-"""SQLAlchemy Table Definitions"""
-### IMPORT & INIT #####################################################
+"""SQLAlchemy ORM Definitions that map classes to database table entries."""
+
+### IMPORTS & INITS ###########################################################
 from flask_sqlalchemy import SQLAlchemy
 from flask_login import UserMixin
 
 db = SQLAlchemy()
-db_now = db.func.current_timestamp
+db_now = db.func.current_timestamp  # function alias
 
 
-### TEMPLATE ##########################################################
+### TEMPLATE ##################################################################
 class ModelTable(db.Model):
-    """Base model tabledef to inherit"""
+    """Base model tabledef to inherit."""
     __abstract__ = True
 
     id = db.Column(db.Integer, primary_key=True)
@@ -17,9 +18,9 @@ class ModelTable(db.Model):
     modified_at = db.Column(db.DateTime, default=db_now(), onupdate=db_now())
 
 
-### TABLEDEFS #########################################################
+### TABLEDEFS #################################################################
 class User(ModelTable, UserMixin):
-    """Database User Table Model"""
+    """Database User Table Model."""
     __tablename__ = "users"
 
     email = db.Column(db.String(255), unique=True, nullable=False)

@@ -1,17 +1,14 @@
+# Python packages needed to run the application
 flask                       # web framework
 flask-cache                 # caching decorators for flask
 flask-debugtoolbar          # injected debugging toolbar to app debug mode
-flask-limiter               # for limiting the rate pages can be accessed (eg logins)
+flask-limiter               # for limiting the rate pages can be accessed (eg. logins)
 flask-login                 # for handling user sessions
+flask-migrate               # flask Alembic migration tool
+flask-script                # flask assorted scripts manager
 flask-sslify                # Enforces https everywhere
 flask-wtf                   # integrates flask and wtforms
+gunicorn                    # web server
 mypy                        # static type checker
 wtforms                     # form generator
 wtforms-alchemy             # integrates wtforms with SQLAlchemy
-
-# Dev Tools; Not needed for distribution
-docutils                    # docstring collector
-pytest                      # code tester
-yapf                        # code formatter
-sphinx                      # documentation generator
-sphinx_rtd_theme            # sphinx ReadTheDocs theme

@@ -1,0 +1,7 @@
+# Dev Tools; Not needed for running the application
+docutils                    # docstring collector
+faker                       # fake data generator
+pytest                      # code tester
+yapf                        # code formatter
+sphinx                      # documentation generator
+sphinx_rtd_theme            # sphinx ReadTheDocs theme

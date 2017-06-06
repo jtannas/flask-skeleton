@@ -1,0 +1,33 @@
+{% extends "layout.html" %}
+
+{% block head %}
+{% endblock %}
+
+{% block title %} Request Print Services {% endblock %}
+
+{% block main %}
+    <div id="reqprint">
+        <h1>Printing Services Request</h1>
+
+        <form method="post" enctype=multipart/form-data>
+            {{ form.csrf_token }}
+            {{ macros.render_field(form.number_of_copies, default="1") }}
+            {{ macros.render_field(form.orientation) }}
+            {{ macros.render_field(form.duplex) }}
+            {{ macros.render_field(form.print_colour) }}
+            {{ macros.render_field(form.paper_size) }}
+            {{ macros.render_field(form.paper_type) }}
+            {{ macros.render_field(form.laminate) }}
+            {{ macros.render_field(form.punch) }}
+            {{ macros.render_field(form.binding) }}
+            <br/>
+            {{ macros.render_field(form.due_date) }}
+            {{ macros.render_field(form.exam) }}
+            {{ macros.render_field(form.printme) }}
+            {{ macros.render_field(form.cover) }}
+            {{ macros.render_field(form.comments, cols="35", row="20") }}
+            <br/>
+            <button type="submit" name="submit">Submit Print Request</button>
+        </form>
+    </div>
+{% endblock %}
