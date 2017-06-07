@@ -9,10 +9,10 @@ Clean Architecture
 ------------------
 
 A major inspiration of this code is a talk given by Brandon Rhodes on
-"The Clean Architecture in Python". It is avaiable on youtube at this
+"The Clean Architecture in Python". It is available on youtube at this
 link: https://www.youtube.com/watch?v=DJtef410XaM
 
-To boil it down into a statement though it is:
+To boil it down into a statement:
 
 ::
 
@@ -61,6 +61,7 @@ business logic, and facilitates/moderates the user interaction with the
 data mode.
 
 The convention for this project is:
-    models go in ```models.py``` files
-    views go in ```views.py``` files
-    controllers go in ```__init__.py``` files
+
+- models go in ```models.py``` files
+- views go in ```views.py``` files
+- controllers go in ```__init__.py``` files

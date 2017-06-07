@@ -27,12 +27,14 @@ Appplication Modes
 Within the config.py, there are couple different classes. The 'Default'
 class contains all the default settings for the application. As of the
 writing of this documentation there are also classes for:
+
 - Development
 - Testing
 - Production
 
 These classes each inherit the default class, and then modify certain
-variables. They each represent a different 'mode' for the application
+variables. They each represent a different 'mode' for the application:
+
 - development mode
 - testing mode
 - production mode

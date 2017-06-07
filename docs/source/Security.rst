@@ -20,7 +20,7 @@ SQL Injection
 
 To prevent SQL injection, this application uses SQLAlchemy to interface
 with the database. It has features to prevent SQL injection. Don't use
-raw SQL queries to interract with the database and you should be fine.
+raw SQL queries to interact with the database and you should be fine.
 
 CSRF Protection
 ---------------
@@ -33,7 +33,7 @@ See: https://flask-wtf.readthedocs.io/en/latest/csrf.html
 Cross Site Scripting (XSS)
 --------------------------
 
-Flask uses the Jinja2 templating engine by default, and has it setup
+Flask uses the Jinja2 templating engine by default, and has it set up
 to prevent XSS by auto-escaping everything that it inserts into the
 page. There are still a few ways to be attacked from this, so be
 uber-cautious when handling anything the user provides.
