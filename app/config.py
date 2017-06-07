@@ -41,7 +41,7 @@ class Default():
 
     #: Enable protection against Cross-site Request Forgery (CSRF).
     CSRF_ENABLED = True
-    CSRF_SESSION_KEY = environ['CSRF_SESSION_KEY']
+    WTF_CSRF_SECRET_KEY = environ['WTF_CSRF_SECRET_KEY']
 
     #: ReCaptcha Settings
     RECAPTCHA_USE_SSL = True

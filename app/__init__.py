@@ -69,7 +69,9 @@ def create_app(mode=None):
 
 ### FUNCTIONAL CORE ###########################################################
 def register_debugtools(flask_app):
-    """Applies some extra configuration changes for debug mode."""
+    """
+    Applies some extra configuration changes for debug mode.
+    """
 
     if flask_app.config['DEBUG'] is False:
         return
