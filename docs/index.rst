@@ -10,6 +10,15 @@ Welcome to flask-skeleton's documentation!
    :maxdepth: 2
    :caption: Contents:
 
+   source/Architecture
+   source/Caching
+   source/Configuration
+   source/Debugging
+   source/Formatting
+   source/Forms
+   source/Models
+   source/Security
+   source/Testing
 
 
 Indices and tables
