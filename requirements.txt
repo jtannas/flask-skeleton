@@ -10,5 +10,6 @@ flask-sslify                # Enforces https everywhere
 flask-wtf                   # integrates flask and wtforms
 gunicorn                    # web server
 mypy                        # static type checker
+rauth                       # OAuth Library
 wtforms                     # form generator
 wtforms-alchemy             # integrates wtforms with SQLAlchemy
