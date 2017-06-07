@@ -129,7 +129,10 @@ def register_errorhandlers(flask_app):
     """Registers error handlers for a list of errors."""
 
     def render_error(e):
-        return render_template(f'errors/{e.code}.html'), e.code
+        if hasattr(e, 'code'):
+            return render_template(f'errors/{e.code}.html'), e.code
+        else:
+            return render_template(f'errors/500.html'), 500
 
     for e in [403, 404, 410, 500, CSRFError]:
         flask_app.errorhandler(e)(render_error)
