@@ -28,11 +28,6 @@ manager.add_option(
     '--mode',
     dest='mode',
     required=False, )
-manager.add_option(
-    '-c',
-    '--instance_config_pyfile',
-    dest='instance_config_pyfile',
-    required=False, )
 
 manager.add_command('db', MigrateCommand)
 manager.add_command('runserver', Server(host="0.0.0.0", port=8080))

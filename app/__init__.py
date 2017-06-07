@@ -19,7 +19,7 @@ from app.extensions import cache, csrf, debug_toolbar, limiter, login_manager, \
 from app.models import db
 
 ### IMPERATIVE SHELL ##########################################################
-def create_app(mode=None, instance_config_pyfile=None):
+def create_app(mode=None):
     """
     Create, configure, extend, and add blueprints to a flask instance.
 
@@ -46,15 +46,10 @@ def create_app(mode=None, instance_config_pyfile=None):
     # Flask-script passes None when given no arguments
     if not mode:
         mode = 'Default'
-    if not instance_config_pyfile:
-        instance_config_pyfile = 'flask_config.py'
 
     ### Init the application
-    app = Flask(__name__, instance_relative_config = True)
+    app = Flask(__name__)
     app.config.from_object(CONFIGS[mode])
-    app.config.from_pyfile(instance_config_pyfile)
-    assert app.config['INSTANCE_CONFIG_COMPLETE'] is True, \
-        "Failed to find instance configuration file"
 
     ### Register modifications to the app
     register_debugtools(app)

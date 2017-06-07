@@ -21,20 +21,16 @@ class Default():
 
     DEBUG = True
 
+    #: Secret Key
+    SECRET_KEY = environ['SECRET_KEY']
+
     #: Use server side sessions for greater security
     SESSION_FILE_DIR = gettempdir()
     SESSION_PERMANENT = False
     SESSION_TYPE = 'filesystem'
 
     #: Define the SQLAlchemy database connection properties
-    POSTGRES_USER = environ.get('DB_ENV_USER', 'postgres')
-    POSTGRES_PASS = environ.get('DB_ENV_PASS', 'testing')
-    POSTGRES_HOST = 'localhost'
-    POSTGRES_DB = 'development'
-    SQLALCHEMY_DATABASE_URI = 'postgresql://%s:%s@%s/%s' % (POSTGRES_USER,
-                                                            POSTGRES_PASS,
-                                                            POSTGRES_HOST,
-                                                            POSTGRES_DB)
+    SQLALCHEMY_DATABASE_URI = environ['DATABASE_URL']
     SQLALCHEMY_TRACK_MODIFICATIONS = False
     DATABASE_CONNECT_OPTIONS = {}
 
@@ -44,11 +40,10 @@ class Default():
     THREADS_PER_PAGE = 2
 
     #: Enable protection against Cross-site Request Forgery (CSRF).
-    #: A CSRF_SESSION_KEY will need to be set in the instance folder.
     CSRF_ENABLED = True
+    CSRF_SESSION_KEY = environ['CSRF_SESSION_KEY']
 
-    #: Get ReCaptcha to use SSL. ReCaptcha keys need to be set within the
-    #: instance folder.
+    #: ReCaptcha Settings
     RECAPTCHA_USE_SSL = True
 
     #: Set the Flask-Limter Rate limit options to prevent spamming
@@ -57,6 +52,15 @@ class Default():
 
     #: File Upload Settings
     MAX_CONTENT_LENGTH = 32 * 1024**2
+    UPLOAD_FOLDER = environ['UPLOAD_FOLDER']
+
+    #: OAuth Settings
+    OAUTH_CREDENTIALS = {
+    'google': {
+        'id': environ['GOOGLE_OAUTH_ID'],
+        'secret': environ['GOOGLE_OAUTH_SECRET'],
+    }
+} # yapf: disable
 
 
 class Development(Default):
